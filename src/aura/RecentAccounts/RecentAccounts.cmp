@@ -1,0 +1,53 @@
+<!--Recent accounts component-->
+<aura:component implements="flexiPage:availableForAllPageTypes,force:appHostable"
+                controller="RecentAccounts"
+                description="Component to display recent accounts table">
+    
+    <aura:attribute name="accounts"
+                    type="Account[]"/>
+    <aura:handler name="init"
+                  value="{!this}"
+                  action="{!c.onInit}"/>
+    
+    <div style="text-align: right">
+        <lightning:button class="slds-m-around_large" label="Refresh" variant="brand" onclick="{!c.doRefresh}"/>
+    </div>
+    
+    <table class="slds-table slds-border--left slds-border--right slds-table--bordered slds-table_col-bordered slds-table_cell-buffer slds-table--striped">
+    	<thead class="slds-text-title_caps">
+        	<tr>
+            	<th scope="col"
+                    class="slds-text-align--center">
+                	Name
+                </th>
+                <th scope="col"
+                    class="slds-text-align--center">
+                	Account Number
+                </th>
+                <th scope="col"
+                    class="slds-text-align--center">
+                	Industry
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+        	<aura:iteration items="{!v.accounts}" var="account">
+            	<tr>
+                	<td class="slds-text-align--left">
+                    	<lightning:button aura:id="accountId" 
+                                                  variant="base"
+                                                  label="{!account.Name}"
+                                                  onclick="{!c.handleNavigation}"/>
+                    </td>
+                    <td class="slds-text-align--left">
+                    	<ui:outputText value="{!account.AccountNumber}"/>
+                    </td>
+                    <td class="slds-text-align--left">
+                    	<ui:outputText value="{!account.AccountSource}"/>
+                    </td>
+                </tr>
+            </aura:iteration>
+        </tbody>
+    </table>
+	
+</aura:component>
